@@ -9,9 +9,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY', 'glamour_life_secret_key_2024')
+app.secret_key = os.getenv.get('FLASK_SECRET', 'dev-secret')
 
-mongo_uri = os.getenv('MONGO_URI', 'mongodb://localhost:27017/glamour_life')
+mongo_uri = os.getenv('MONGO_URI', 'mongodb+srv://peralta:admin123@escuela.mraamvk.mongodb.net/glamour_life')
 app.config["MONGO_URI"] = mongo_uri
 
 app.config['UPLOAD_FOLDER'] = 'static/img'
@@ -399,4 +399,5 @@ def logout():
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
+
     app.run(debug=True, port=5001)
