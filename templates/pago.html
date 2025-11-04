@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="pago-container">
+    <h1 class="page-title">Finalizar Compra</h1>
+    
+    <div class="pago-content">
+        <div class="resumen-pedido">
+            <h3>Resumen de tu Pedido</h3>
+            {% for item in carrito %}
+            <div class="resumen-item">
+                <span class="item-nombre">{{ item.nombre }}</span>
+                <span class="item-cantidad">x{{ item.cantidad }}</span>
+                <span class="item-total">${{ "{:,.2f}".format(item.precio * item.cantidad) }}</span>
+            </div>
+            {% endfor %}
+            
+            {% if total > 1500 %}
+            <div class="envio-gratis">
+                🎉 ¡Envío gratis aplicado!
+            </div>
+            {% else %}
+            <div class="envio-info">
+                💫 Agrega ${{ (1500 - total)|round }} más para envío gratis
+            </div>
+            {% endif %}
+            
+            <div class="resumen-total">
+                <strong>Total: ${{ "{:,.2f}".format(total) }}</strong>
+            </div>
+        </div>
+        
+        <div class="metodos-pago">
+            <form action="{{ url_for('procesar_pago') }}" method="POST" class="pago-form">
+                <div class="metodo-pago-group">
+                    <h3>Selecciona método de pago</h3>
+                    
+                    <label class="metodo-option">
+                        <input type="radio" name="metodo_pago" value="tarjeta" checked>
+                        <span class="metodo-icon">💳</span>
+                        <span class="metodo-text">Tarjeta de Crédito/Débito</span>
+                    </label>
+                    
+                    <label class="metodo-option">
+                        <input type="radio" name="metodo_pago" value="paypal">
+                        <span class="metodo-icon">🔵</span>
+                        <span class="metodo-text">PayPal</span>
+                    </label>
+                    
+                    <label class="metodo-option">
+                        <input type="radio" name="metodo_pago" value="transferencia">
+                        <span class="metodo-icon">🏦</span>
+                        <span class="metodo-text">Transferencia Bancaria</span>
+                    </label>
+                </div>
+                
+                <div class="datos-tarjeta" id="datos-tarjeta">
+                    <h3>Datos de tarjeta</h3>
+                    
+                    <div class="form-group">
+                        <input type="text" name="numero_tarjeta" placeholder="Número de tarjeta" 
+                               class="form-input" maxlength="16" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" name="fecha_vencimiento" placeholder="MM/AA" 
+                                   class="form-input" maxlength="5" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="cvv" placeholder="CVV" 
+                                   class="form-input" maxlength="3" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" name="nombre_titular" placeholder="Nombre del titular" 
+                               class="form-input" required>
+                    </div>
+                </div>
+                
+                <div class="datos-envio">
+                    <h3>Datos de envío</h3>
+                    <div class="form-group">
+                        <input type="text" name="direccion" placeholder="Dirección completa" class="form-input" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" name="ciudad" placeholder="Ciudad" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="codigo_postal" placeholder="Código Postal" class="form-input" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-confirmar-pago">Confirmar Compra</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const metodoTarjeta = document.querySelector('input[value="tarjeta"]');
+    const datosTarjeta = document.getElementById('datos-tarjeta');
+    
+    function toggleDatosTarjeta() {
+        if (metodoTarjeta.checked) {
+            datosTarjeta.style.display = 'block';
+        } else {
+            datosTarjeta.style.display = 'none';
+        }
+    }
+    
+    document.querySelectorAll('input[name="metodo_pago"]').forEach(radio => {
+        radio.addEventListener('change', toggleDatosTarjeta);
+    });
+    
+    toggleDatosTarjeta();
+});
+</script>
+{% endblock %}

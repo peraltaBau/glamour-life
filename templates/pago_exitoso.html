@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="exito-container">
+    <div class="exito-card">
+        <div class="exito-icon">🎉</div>
+        <h1 class="exito-title">¡Compra Realizada con Éxito!</h1>
+        <p class="exito-message">
+            Tu pedido ha sido confirmado. Recibirás un correo con los detalles de envío.
+        </p>
+        
+        <div class="exito-detalles">
+            <div class="detalle-item">
+                <span class="detalle-label">Número de pedido:</span>
+                <span class="detalle-valor">GL{{ "%06d" | format(range(1, 1000000) | random ) }}</span>
+            </div>
+            <div class="detalle-item">
+                <span class="detalle-label">Fecha estimada de entrega:</span>
+                <span class="detalle-valor">2-3 días hábiles</span>
+            </div>
+        </div>
+        
+        <div class="exito-acciones">
+            <a href="{{ url_for('departamentos_view') }}" class="btn-seguir-comprando">
+                Seguir Comprando
+            </a>
+            <a href="{{ url_for('index') }}" class="btn-inicio">
+                Ir al Inicio
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

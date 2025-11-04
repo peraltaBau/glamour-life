@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="procesando-container">
+    <div class="procesando-card">
+        <div class="procesando-icon">⏳</div>
+        <h1 class="procesando-title">Procesando tu pedido</h1>
+        <p class="procesando-message">Estamos confirmando los detalles de tu compra...</p>
+        
+        <div class="loading-spinner"></div>
+        
+        <div class="procesando-info">
+            <p>✨ Tu belleza está a punto de llegar</p>
+        </div>
+    </div>
+</div>
+
+<script>
+setTimeout(function() {
+    window.location.href = "{{ url_for('pago_exitoso') }}";
+}, 3000);
+</script>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bienvenida-container">
+    <div class="bienvenida-card">
+        <div class="bienvenida-icon">✨</div>
+        <h1 class="bienvenida-title">BIENVENIDA A GLAMOUR LIFE</h1>
+        <p class="bienvenida-message">Descubre tu belleza interior y exterior</p>
+        <a href="{{ url_for('departamentos_view') }}" class="bienvenida-button">
+            Explorar Productos
+        </a>
+    </div>
+</div>
+{% endblock %}
