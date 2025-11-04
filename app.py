@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv.get('FLASK_SECRET', 'dev-secret')
+app.secret_key = os.getenv('FLASK_SECRET', 'dev-secret')
 
 mongo_uri = os.getenv('MONGO_URI', 'mongodb+srv://peralta:admin123@escuela.mraamvk.mongodb.net/glamour_life')
 app.config["MONGO_URI"] = mongo_uri
@@ -401,3 +401,4 @@ def logout():
 if __name__ == '__main__':
 
     app.run(debug=True, port=5001)
+
